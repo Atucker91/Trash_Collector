@@ -1,2 +1,1 @@
-# Trash_Collector
-Trash collection program using django 
+# trash_collector_starter
