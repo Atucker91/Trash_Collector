@@ -16,8 +16,8 @@ Hello Employee {{ logged_in_employee.name }}!
     <li class="list-group-item">
       <a href="{% url 'employees:customer' customer.id %}">{{customer.name}}</a><br>
       {{customer.address}}, {{customer.zip_code}}<br><br>
-      {% csrf_token %}
-      <form method="post"><input type="hidden" id="customerid" name="cust_id" value="{customer.id}"><input type="submit" value="Collect Payment"></form>
+      <form method="post">{% csrf_token %}<input type="hidden" id="cust_id" name="cust_id" value="{{ customer.id }}"><input type="submit" value="Collect Payment"></form>
+      <br><h6>Last picked up: {{customer.date_of_last_pickup}}</h6>
     </li>
     {% endfor %}
 </h6>
