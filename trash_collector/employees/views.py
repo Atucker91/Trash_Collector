@@ -7,6 +7,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
 from . import views
 from django.contrib.auth.decorators import login_required
+import calendar
+from django.db.models import Q 
 
 # Create your views here.
 
@@ -21,14 +23,18 @@ def index(request):
     logged_in_user = request.user
     try:
         # This line will return the customer record of the logged-in user if one exists
-        logged_in_employee = Employee.objects.get(user=logged_in_user)
-
+        
         today = date.today()
+        day = calendar.day_name[today.weekday()]
+        logged_in_employee = Employee.objects.get(user=logged_in_user)
+        matched_customers = Customer.objects.filter(Q(zip_code = logged_in_employee.zipcode) | Q(one_time_pickup = today) | Q(weekly_pickup = day))
         
         context = {
             'logged_in_employee': logged_in_employee,
             'today': today,
-            'Customer': all_customers
+            'Customer': all_customers,
+            'Customers': matched_customers,
+            'day': day
         }
         return render(request, 'employees/index.html', context)
     except ObjectDoesNotExist:

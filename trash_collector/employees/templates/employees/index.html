@@ -3,23 +3,26 @@
 {% block title %}{% block header %} Employee Home {% endblock %}{% endblock %}
 
 {% block content %}
-  {% if user.is_authenticated %}
-    Hello Employee {{ user.username }}!
-  <br> Group id: {{ user.is_staff}}
-  <br> date joined: {{ user.date_joined}}
-  <br> user is_employee: {{ user.is_employee}}
-  <br><br> <h1>Customers:</h1>
-  <h6><ul class="list-group list-group-flush rounded mb-4">
-    {% for customer in Customer %}
+{% if user.is_authenticated %}
+Hello Employee {{ user.username }}!
+<br> Group id: {{ user.is_staff}}
+<br> date joined: {{ user.date_joined}}
+<br> user is_employee: {{ user.is_employee}}
+<br><br>
+<h1>Pickups For {{ day }} {{ today }}:</h1>
+<h6>
+  <ul class="list-group list-group-flush rounded mb-4">
+    {% for customer in Customers %}
     <li class="list-group-item">
-      {{customer.name}} <br> 
+      {{customer.name}} <br>
       {{customer.address}}, {{customer.zip_code}}
     </li>
-    {% endfor %}</h6>
+    {% endfor %}
+</h6>
 </ul>
-  {% else %}
-    <p>You are at the employee index, but you are not logged in.</p>
-    <a href="{% url 'login' %}">Log In</a>
-    <a href="{% url 'accounts:register' %}">Sign Up</a>
-  {% endif %}
+{% else %}
+<p>You are at the employee index, but you are not logged in.</p>
+<a href="{% url 'login' %}">Log In</a>
+<a href="{% url 'accounts:register' %}">Sign Up</a>
+{% endif %}
 {% endblock %}
