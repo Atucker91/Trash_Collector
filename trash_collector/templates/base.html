@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+{% load static %}
 <head>
   <meta charset="utf-8">
   <title>{% block title %}{% endblock %}</title>
@@ -8,7 +9,7 @@
   <body>
   {% if user.is_authenticated %}
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Trash Collector</a>
+    <img src="{% static 'trash_collector/Untitled-1.png' alt='logo' %}" alt="My image" style="width: 12%;"><a class="navbar-brand" href="#">Trash Collector</a>
     <div class="navbar-nav">
     {% block navbar %}{% endblock %}
     <a class="nav-item nav-link" href="{% url 'logout' %}">Log Out</a>
@@ -16,8 +17,6 @@
   </nav>
   {% endif %}
     <main>
-      {% load static %}
-<img src="{% static 'trash_collector/Untitled-1.png' alt='logo' %}" alt="My image" width="300" style="display: block; margin-left: auto; margin-right: auto; width: 50%;">
       <div class="container">
         <div class="row">
           <div class="col-2"></div>
