@@ -14,7 +14,7 @@ Hello Employee {{ user.username }}!
   <ul class="list-group list-group-flush rounded mb-4">
     {% for customer in Customers %}
     <li class="list-group-item">
-      {{customer.name}} <br>
+      <a href="{% url 'employees:customer' customer.id %}">{{customer.name}}</a><br>
       {{customer.address}}, {{customer.zip_code}}
     </li>
     {% endfor %}

@@ -27,7 +27,7 @@ def index(request):
         today = date.today()
         day = calendar.day_name[today.weekday()]
         logged_in_employee = Employee.objects.get(user=logged_in_user)
-        matched_customers = Customer.objects.filter(Q(zip_code = logged_in_employee.zipcode) | Q(one_time_pickup = today) | Q(weekly_pickup = day))
+        matched_customers = Customer.objects.filter(Q(zip_code = logged_in_employee.zipcode) & Q(one_time_pickup = today) | Q(weekly_pickup = day))
         
         context = {
             'logged_in_employee': logged_in_employee,
@@ -85,5 +85,23 @@ def customerslist(request):
             'Customer': all_customers
         }
         return render(request, 'employees/customer_list.html', context)
+    except ObjectDoesNotExist:
+        return HttpResponseRedirect(reverse('employees:index'))
+
+@login_required
+def customer(request, custid):
+    Customer = apps.get_model('customers.Customer')
+    mycustomer = Customer.objects.get(id=custid)
+    logged_in_user = request.user
+    try:
+        logged_in_employee = Employee.objects.get(user=logged_in_user)
+        today = date.today()
+        
+        context = {
+            'logged_in_employee': logged_in_employee,
+            'today': today,
+            'Customer': mycustomer
+        }
+        return render(request, 'employees/customerprofile.html', context)
     except ObjectDoesNotExist:
         return HttpResponseRedirect(reverse('employees:index'))
