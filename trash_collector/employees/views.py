@@ -80,19 +80,35 @@ def customerslist(request):
     Customer = apps.get_model('customers.Customer')
     all_customers = Customer.objects.all()
     logged_in_user = request.user
-    try:
-        # This line will return the customer record of the logged-in user if one exists
-        logged_in_employee = Employee.objects.get(user=logged_in_user)
-        today = date.today()
-        
-        context = {
-            'logged_in_employee': logged_in_employee,
-            'today': today,
-            'Customer': all_customers
-        }
-        return render(request, 'employees/customer_list.html', context)
-    except ObjectDoesNotExist:
-        return HttpResponseRedirect(reverse('employees:index'))
+
+    if request.method == "POST":
+        try:
+            # This line will return the customer record of the logged-in user if one exists
+            logged_in_employee = Employee.objects.get(user=logged_in_user)
+            today = date.today()
+            
+            context = {
+                'logged_in_employee': logged_in_employee,
+                'today': today,
+                'Customer': all_customers
+            }
+            return render(request, 'employees/customer_list.html', context)
+        except ObjectDoesNotExist:
+            return HttpResponseRedirect(reverse('employees:index'))
+    else:
+        try:
+            # This line will return the customer record of the logged-in user if one exists
+            logged_in_employee = Employee.objects.get(user=logged_in_user)
+            today = date.today()
+            
+            context = {
+                'logged_in_employee': logged_in_employee,
+                'today': today,
+                'Customer': all_customers
+            }
+            return render(request, 'employees/customer_list.html', context)
+        except ObjectDoesNotExist:
+            return HttpResponseRedirect(reverse('employees:index'))
 
 @login_required
 def customer(request, custid):

@@ -6,35 +6,49 @@
 
 {% block content %}
 
-Table view of the customers
+Table view of the customers <br>
+Select day of week to see pickup list
+<form method="post">
+  {% csrf_token %}
+  <select name="day_of_week">
+    <option value="" selected></option>
+    <option value="Monday" id="dayofweek">Monday</option>
+    <option value="Tuesday" id="dayofweek">Tuesday</option>
+    <option value="Wednesday" id="dayofweek">Wednesday</option>
+    <option value="Thursday" id="dayofweek">Thursday</option>
+    <option value="Friday" id="dayofweek">Friday</option>
+    <option value="Saturday" id="dayofweek">Saturday</option>
+    <option value="Sunday" id="dayofweek">Sunday</option>
+  </select>
+</form>
 
 <table style="width: 1250px;" border="1">
-    <tbody>
-      <tr>
-        <td style="width: 200px;font-weight: bold;">Name</td>
-          <td style="width: 350px;font-weight: bold;">Address</td>
-          <td style="width: 110px;font-weight: bold;">Zip code</td>
-          <td style="width: 125px;font-weight: bold;">Pickup Day</td>
-          <td style="width: 115px;font-weight: bold;">Special Pickup</td>
-          <td style="width: 50px;font-weight: bold;">Last pickup day</td>
-          <td style="width: 100px;font-weight: bold;">Balance</td>
-          <td style="width: 50px;font-weight: bold;">Suspended?</td>
-      </tr>
-      {% for customer in Customer %}
-      <tr>
-        <td style="width: 200px;"><a href="{% url 'employees:customer' customer.id %}">{{customer.name}}</a></td>
-        <td style="width: 350px;">{{customer.address}}</td>
-        <td style="width: 110px;">{{customer.zip_code}}</td>
-        <td style="width: 125px;">{{customer.weekly_pickup}}</td>
-        <td style="width: 125px;">{{customer.one_time_pickup}}</td>
-        <td style="width: 125px;">{{customer.date_of_last_pick}}</td>
-        <td style="width: 100px;">{{customer.balance}}</td>
-        <td style="width: 50px;">{{customer.suspended}}</td>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-  
+  <tbody>
+    <tr>
+      <td style="width: 200px;font-weight: bold;">Name</td>
+      <td style="width: 350px;font-weight: bold;">Address</td>
+      <td style="width: 110px;font-weight: bold;">Zip code</td>
+      <td style="width: 125px;font-weight: bold;">Pickup Day</td>
+      <td style="width: 115px;font-weight: bold;">Special Pickup</td>
+      <td style="width: 50px;font-weight: bold;">Last pickup day</td>
+      <td style="width: 100px;font-weight: bold;">Balance</td>
+      <td style="width: 50px;font-weight: bold;">Suspended?</td>
+    </tr>
+    {% for customer in Customer %}
+    <tr>
+      <td style="width: 200px;"><a href="{% url 'employees:customer' customer.id %}">{{customer.name}}</a></td>
+      <td style="width: 350px;">{{customer.address}}</td>
+      <td style="width: 110px;">{{customer.zip_code}}</td>
+      <td style="width: 125px;">{{customer.weekly_pickup}}</td>
+      <td style="width: 125px;">{{customer.one_time_pickup}}</td>
+      <td style="width: 125px;">{{customer.date_of_last_pick}}</td>
+      <td style="width: 100px;">{{customer.balance}}</td>
+      <td style="width: 50px;">{{customer.suspended}}</td>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
 
 {% endblock %}
