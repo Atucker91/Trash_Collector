@@ -1,0 +1,26 @@
+{% extends 'employees/employee_base.html' %}
+
+{% block title %} Full Customer List {% endblock %}
+
+{% block header %} Customers List {% endblock %}
+
+{% block content %}
+
+Table view of the customers
+{% for customer in Customer %}
+<table style="width: 1241px; height: 30px;" border="1">
+    <tbody>
+      <tr>
+        <td style="width: 200px;">{{customer.name}}</td>
+        <td style="width: 350px;">{{customer.address}}</td>
+        <td style="width: 110px;">{{customer.zip_code}}</td>
+        <td style="width: 125px;">{{customer.weekly_pickup}}</td>
+        <td style="width: 125px;">{{customer.one_time_pickup}}</td>
+        <td style="width: 115px;">{{customer.date_of_last_pick}}</td>
+        <td style="width: 100px;">{{customer.balance}}</td>
+      </tr>
+    </tbody>
+  </table>
+  {% endfor %}
+
+{% endblock %}
