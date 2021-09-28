@@ -87,11 +87,16 @@ def customerslist(request):
             # This line will return the customer record of the logged-in user if one exists
             logged_in_employee = Employee.objects.get(user=logged_in_user)
             today = date.today()
+
+            day_of_week = request.POST.get('dayofweek')
+            matched_customers = Customer.objects.filter(weekly_pickup = day_of_week)
+
             
             context = {
                 'logged_in_employee': logged_in_employee,
                 'today': today,
-                'Customer': all_customers
+                'Customer': all_customers,
+                'Customers': matched_customers
             }
             return render(request, 'employees/customer_list.html', context)
         except ObjectDoesNotExist:
