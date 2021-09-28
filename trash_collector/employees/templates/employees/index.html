@@ -16,7 +16,13 @@ Hello Employee {{ logged_in_employee.name }}!
     <li class="list-group-item">
       <a href="{% url 'employees:customer' customer.id %}">{{customer.name}}</a><br>
       {{customer.address}}, {{customer.zip_code}}<br><br>
+      
+      {% if customer.date_of_last_pickup != today %}
       <form method="post">{% csrf_token %}<input type="hidden" id="cust_id" name="cust_id" value="{{ customer.id }}"><input type="submit" value="Collect Payment"></form>
+      {% endif %}
+      {% if customer.date_of_last_pickup == today %}
+      Trash has been collected today!
+      {% endif %}
       <br><h6>Last picked up: {{customer.date_of_last_pickup}}</h6>
     </li>
     {% endfor %}
