@@ -16,29 +16,35 @@ from django.db.models import Q
 
 @login_required 
 def index(request):
-    # This line will get the Customer model from the other app, it can now be used to query the db for Customers
     Customer = apps.get_model('customers.Customer')
     all_customers = Customer.objects.filter()
-        # The following line will get the logged-in user (if there is one) within any view function
     logged_in_user = request.user
-    try:
-        # This line will return the customer record of the logged-in user if one exists
+
+    if request.method == "POST":
+        # name_from_form = request.POST.get('name')
+        # zip_from_form = request.POST.get('zipcode')
+        # new_employee = Employee(name=name_from_form, user=logged_in_user, zipcode=zip_from_form)
+        # new_employee.save()
+        cust_id_post = request.POST.get('cust_id')
         
-        today = date.today()
-        day = calendar.day_name[today.weekday()]
-        logged_in_employee = Employee.objects.get(user=logged_in_user)
-        matched_customers = Customer.objects.filter(Q(zip_code = logged_in_employee.zipcode) & Q(one_time_pickup = today) | Q(weekly_pickup = day))
+        return HttpResponseRedirect(reverse('employees:index'))
+    else:
+        try:
+            today = date.today()
+            day = calendar.day_name[today.weekday()]
+            logged_in_employee = Employee.objects.get(user=logged_in_user)
+            matched_customers = Customer.objects.filter(Q(zip_code = logged_in_employee.zipcode) & Q(one_time_pickup = today) | Q(weekly_pickup = day))
         
-        context = {
-            'logged_in_employee': logged_in_employee,
-            'today': today,
-            'Customer': all_customers,
-            'Customers': matched_customers,
-            'day': day
-        }
-        return render(request, 'employees/index.html', context)
-    except ObjectDoesNotExist:
-        return HttpResponseRedirect(reverse('employees:create'))
+            context = {
+                'logged_in_employee': logged_in_employee,
+                'today': today,
+                'Customer': all_customers,
+                'Customers': matched_customers,
+                'day': day
+            }
+            return render(request, 'employees/index.html', context)
+        except ObjectDoesNotExist:
+            return HttpResponseRedirect(reverse('employees:create'))
 
 @login_required       
 def create(request):
