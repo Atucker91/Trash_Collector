@@ -4,11 +4,13 @@
 
 {% block header %} Trash Collector {% endblock %}
 
+{% load static %}
 {% block content %}
 <br />
 <br />
 <br />
 <br />
+
 {% if user.is_authenticated %}
   Hello {{ user.username }}. You don't have a group assigned. Please contact administrator or attempt to register again.
   <p><a href="{% url 'logout' %}">Log Out</a></p>
