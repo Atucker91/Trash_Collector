@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %} Trash Collector {% endblock %}
 
 {% block header %} Trash Collector {% endblock %}
 
+{% load static %}
 {% block content %}
 <br />
 <br />
 <br />
 <br />
+<img src="{% static 'trash_collector/Untitled-1.png' alt='logo' %}" alt="My image" style="width: 60%;">
 {% if user.is_authenticated %}
   Hello {{ user.username }}. You don't have a group assigned. Please contact administrator or attempt to register again.
   <p><a href="{% url 'logout' %}">Log Out</a></p>

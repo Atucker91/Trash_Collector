@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'employees/employee_base.html' %}
 
 {% block title %}{% block header %} Employee Home {% endblock %}{% endblock %}
 
@@ -8,6 +8,15 @@
   <br> Group id: {{ user.is_staff}}
   <br> date joined: {{ user.date_joined}}
   <br> user is_employee: {{ user.is_employee}}
+  <br><br> <h1>Customers:</h1>
+  <h6><ul class="list-group list-group-flush rounded mb-4">
+    {% for customer in Customer %}
+    <li class="list-group-item">
+      {{customer.name}} <br> 
+      {{customer.address}}, {{customer.zip_code}}
+    </li>
+    {% endfor %}</h6>
+</ul>
   {% else %}
     <p>You are at the employee index, but you are not logged in.</p>
     <a href="{% url 'login' %}">Log In</a>
