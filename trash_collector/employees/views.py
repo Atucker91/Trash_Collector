@@ -21,12 +21,13 @@ def index(request):
     logged_in_user = request.user
 
     if request.method == "POST":
-        # name_from_form = request.POST.get('name')
-        # zip_from_form = request.POST.get('zipcode')
-        # new_employee = Employee(name=name_from_form, user=logged_in_user, zipcode=zip_from_form)
-        # new_employee.save()
+        today = date.today()
         cust_id_post = request.POST.get('cust_id')
-        
+        customer_edit = Customer.objects.get(id=cust_id_post)
+        customer_edit.date_of_last_pickup = today
+        customer_edit.balance += 20
+        customer_edit.save()
+
         return HttpResponseRedirect(reverse('employees:index'))
     else:
         try:
