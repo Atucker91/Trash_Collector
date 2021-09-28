@@ -18,7 +18,7 @@ from django.db.models import Q
 def index(request):
     # This line will get the Customer model from the other app, it can now be used to query the db for Customers
     Customer = apps.get_model('customers.Customer')
-    all_customers = Customer.objects.all()
+    all_customers = Customer.objects.filter()
         # The following line will get the logged-in user (if there is one) within any view function
     logged_in_user = request.user
     try:

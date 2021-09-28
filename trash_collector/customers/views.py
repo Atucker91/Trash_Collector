@@ -16,10 +16,12 @@ def index(request):
         logged_in_customer = Customer.objects.get(user=logged_in_user)
 
         today = date.today()
+        todayinteger = date.weekday(today)
         
         context = {
             'logged_in_customer': logged_in_customer,
-            'today': today
+            'today': today,
+            'dayofweek': todayinteger
         }
         return render(request, 'customers/index.html', context)
     except ObjectDoesNotExist:
