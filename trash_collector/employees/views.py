@@ -16,6 +16,7 @@ from django.contrib.auth.decorators import login_required
 def index(request):
     # This line will get the Customer model from the other app, it can now be used to query the db for Customers
     Customer = apps.get_model('customers.Customer')
+    all_customers = Customer.objects.all()
         # The following line will get the logged-in user (if there is one) within any view function
     logged_in_user = request.user
     try:
@@ -26,7 +27,8 @@ def index(request):
         
         context = {
             'logged_in_employee': logged_in_employee,
-            'today': today
+            'today': today,
+            'Customer': all_customers
         }
         return render(request, 'employees/index.html', context)
     except ObjectDoesNotExist:
