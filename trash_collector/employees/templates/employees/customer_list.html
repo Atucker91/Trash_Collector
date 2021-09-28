@@ -11,15 +11,16 @@ Select day of week to see pickup list
 <form method="post">
   {% csrf_token %}
   <select name="day_of_week">
-    <option value="" selected></option>
-    <option value="Monday" id="dayofweek">Monday</option>
-    <option value="Tuesday" id="dayofweek">Tuesday</option>
-    <option value="Wednesday" id="dayofweek">Wednesday</option>
-    <option value="Thursday" id="dayofweek">Thursday</option>
-    <option value="Friday" id="dayofweek">Friday</option>
-    <option value="Saturday" id="dayofweek">Saturday</option>
-    <option value="Sunday" id="dayofweek">Sunday</option>
+    <option value="{{ day }}" selected></option>
+    <option value="Monday">Monday</option>
+    <option value="Tuesday">Tuesday</option>
+    <option value="Wednesday">Wednesday</option>
+    <option value="Thursday">Thursday</option>
+    <option value="Friday">Friday</option>
+    <option value="Saturday">Saturday</option>
+    <option value="Sunday">Sunday</option>
   </select>
+  <input type="submit" value="Submit">
 </form>
 
 <table style="width: 1250px;" border="1">
@@ -34,7 +35,7 @@ Select day of week to see pickup list
       <td style="width: 100px;font-weight: bold;">Balance</td>
       <td style="width: 50px;font-weight: bold;">Suspended?</td>
     </tr>
-    {% for customer in Customer %}
+    {% for customer in Customers %}
     <tr>
       <td style="width: 200px;"><a href="{% url 'employees:customer' customer.id %}">{{customer.name}}</a></td>
       <td style="width: 350px;">{{customer.address}}</td>
