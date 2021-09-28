@@ -8,7 +8,8 @@
   <br> Group id: {{ user.is_staff}}
   <br> date joined: {{ user.date_joined}}
   <br> user is_employee: {{ user.is_employee}}
-  <br><br> <h1>Customers:</h1>
+  <br> Today is: {{dayofweek}}
+  <br><br> <h1>My Route:</h1>
   <h6><ul class="list-group list-group-flush rounded mb-4">
     {% for customer in Customer %}
     <li class="list-group-item">
