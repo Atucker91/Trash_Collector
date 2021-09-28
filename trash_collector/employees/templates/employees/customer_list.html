@@ -22,7 +22,7 @@ Table view of the customers
       </tr>
       {% for customer in Customer %}
       <tr>
-        <td style="width: 200px;">{{customer.name}}</td>
+        <td style="width: 200px;"><a href="{% url 'employees:customer' customer.id %}">{{customer.name}}</a></td>
         <td style="width: 350px;">{{customer.address}}</td>
         <td style="width: 110px;">{{customer.zip_code}}</td>
         <td style="width: 125px;">{{customer.weekly_pickup}}</td>
