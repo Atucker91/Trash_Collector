@@ -34,7 +34,9 @@ def index(request):
             today = date.today()
             day = calendar.day_name[today.weekday()]
             logged_in_employee = Employee.objects.get(user=logged_in_user)
-            matched_customers = Customer.objects.filter(Q(zip_code = logged_in_employee.zipcode) & Q(one_time_pickup = today) | Q(weekly_pickup = day))
+            matched_customers = Customer.objects.filter(zip_code = logged_in_employee.zipcode).filter(Q(weekly_pickup = day) | Q(one_time_pickup = today))
+            # & Q(one_time_pickup = today) | Q(weekly_pickup = day))
+            # matched_customers_day = matched_customers_zip.objects.filter(Q(one_time_pickup = today) | Q(weekly_pickup = day))
         
             context = {
                 'logged_in_employee': logged_in_employee,
