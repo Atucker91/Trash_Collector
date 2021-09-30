@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'customers',
-    'employees'
+    'employees',
+    'paypal.standard.ipn'
 ]
 
 MIDDLEWARE = [
@@ -133,3 +134,7 @@ try:
     from trash_collector.local_settings import *
 except ImportError:
     pass
+
+#django paypal settings
+PAYPAL_RECEIVER_EMAIL = 'AandRTrash@gmail.com'
+PAYPAL_TEST = True
