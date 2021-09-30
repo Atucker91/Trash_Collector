@@ -1,17 +1,16 @@
 {% extends 'employees/employee_base.html' %}
 
-{% block title %} Full Customer List {% endblock %}
+{% block title %} Customer Pickup List {% endblock %}
 
-{% block header %} Customers List {% endblock %}
+{% block header %} Customer Pickup List {% endblock %}
 
 {% block content %}
-
-Table view of the customers <br>
-Select day of week to see pickup list
-<form method="post">
+<br>
+Select A Day Of The Week To See Pickup List of All Zipcodes
+<form style="padding-bottom: 30px" method="post">
   {% csrf_token %}
   <select name="day_of_week">
-    <option value="{{ day }}" selected></option>
+    <!-- <option value="Monday" selected></option> -->
     <option value="Monday">Monday</option>
     <option value="Tuesday">Tuesday</option>
     <option value="Wednesday">Wednesday</option>
@@ -23,7 +22,7 @@ Select day of week to see pickup list
   <input type="submit" value="Submit">
 </form>
 
-<table style="width: 1250px;" border="1">
+<table class="table table-light table-striped tc-table">
   <tbody>
     <tr>
       <td style="width: 200px;font-weight: bold;">Name</td>
@@ -37,7 +36,7 @@ Select day of week to see pickup list
     </tr>
     {% for customer in Customers %}
     <tr>
-      <td style="width: 200px;"><a href="{% url 'employees:customer' customer.id %}">{{customer.name}}</a></td>
+      <td><a class="btn btn-primary btn-sm" href="{% url 'employees:customer' customer.id %}">{{customer.name}}</a></td>
       <td style="width: 350px;">{{customer.address}}</td>
       <td style="width: 110px;">{{customer.zip_code}}</td>
       <td style="width: 125px;">{{customer.weekly_pickup}}</td>
