@@ -9,7 +9,7 @@
   <!-- Go here if customer logged in -->
   {% if user.is_authenticated %}
 
-    <h3 class="col-sm-6 mb-4 bg-warning p-2 rounded text-center">Current Balance:  ${{ Customer.balance }}</h3>
+    <h3 class="col-sm-6 mb-4 bg-warning p-2 rounded text-center">Current Balance:  {{ custbalance }}</h3>
 
     <ul>
         <li>
@@ -41,6 +41,8 @@
             <label class="fw-bold text-danger">
                 Suspension End:
             </label> {{Customer.suspend_end}}
+            <br>
+            <iframe class="col-sm-6 mb-4 embed-responsive embed-responsive-1by1" title="customer_addres_map" src="{{api_address}}" allowfullscreen></iframe>
         </li>
     </ul>
     

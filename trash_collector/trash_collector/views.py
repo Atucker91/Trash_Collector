@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from django.core.urlresolvers import reverse
+# from django.core.urlresolvers import reverse
 
 
 def group_redirect(request):

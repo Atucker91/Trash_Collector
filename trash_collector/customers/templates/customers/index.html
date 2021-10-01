@@ -10,7 +10,8 @@ Hello {{ logged_in_customer.name }}!<br />
 Address: {{ logged_in_customer.address }} {{logged_in_customer.zip_code }}<br />
 Current balance: $ {{ logged_in_customer.balance }}.00
 <br />
-<br />
+Make a payment{{ form.render }}
+<br /><br />
 Your Weekly Pickup Day: {{ logged_in_customer.weekly_pickup }}
 <br />
 <br />
