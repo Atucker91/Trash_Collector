@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from datetime import date
+from paypal.standard.forms import PayPalPaymentsForm
 
 from .models import Customer
 
@@ -91,3 +92,21 @@ def edit_profile(request):
             'logged_in_customer': logged_in_customer
         }
         return render(request, 'customers/edit_profile.html', context)
+        
+# @login_required
+# # def view_that_asks_for_money(request):
+# #     logged_in_user = request.user
+# #     logged_in_customer = Customer.objects.get(user=logged_in_user)
+# #     paypal_dict = {
+# #         'business':settings.PAYPAL_RECIEVER_EMAIL,
+# #         'amount': '%.2f' % CustomerPay.balance,
+# #         'item_name': 'Order {}',
+# #         'invoice':str(logged_in_user.id),
+# #         'currency_code': 'USD',
+# #         'notify_url': 'http://{}{}'.format(host, reverse('paypal-ip')),
+# #         'return_url': 'http://{}{}'.format(host, reverse('payment:done')),
+# #         'cancel_return': 'http://{}{}'.format(host, reverse('payment:canceled'))
+# #     }
+# #     # form = PayPalPaymentsForm(initial=paypal_dict)
+# #     # context = {“form”: form}
+# #     # return render_to_response(“payment.html”, context)
