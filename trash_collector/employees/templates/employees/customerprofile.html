@@ -6,55 +6,55 @@
 {% block header %} {{ Customer.name }}'s Account Details {% endblock %}
 
 {% block content %}
-<!-- Go here if customer logged in -->
-{% if user.is_authenticated %}
+  <!-- Go here if customer logged in -->
+  {% if user.is_authenticated %}
 
-<h3 class="col-sm-6 mb-4 bg-warning p-2 rounded text-center">Current Balance: ${{ Customer.balance }}</h3>
+    <h3 class="col-sm-6 mb-4 bg-warning p-2 rounded text-center">Current Balance:  {{ custbalance }}</h3>
 
-<ul>
-    <li>
-        <label class="fw-bold">
-            Name:
-        </label> {{ Customer.name}}<br>
+    <ul>
+        <li>
+            <label class="fw-bold">
+                Name:
+            </label> {{ Customer.name}}<br>
 
-        <label class="fw-bold">
-            Address:
-        </label> {{Customer.address}}, {{Customer.zipcode}}<br>
+            <label class="fw-bold">
+                Address: 
+            </label> {{Customer.address}}, {{Customer.zipcode}}<br>
 
-        <label class="fw-bold">
-            Weekly Pickup Day:
-        </label> {{ Customer.weekly_pickup }}<br>
+            <label class="fw-bold">
+                Weekly Pickup Day:
+            </label> {{ Customer.weekly_pickup }}<br>
 
-        <label class="fw-bold">
-            Last Picked up:
-        </label> {{Customer.date_of_last_pickup}}
-        <br>
-        <label class="fw-bold">
-            Special Pickup Date(s):
-        </label> {{Customer.one_time_pickup}}
+            <label class="fw-bold">
+                Last Picked up:
+            </label> {{Customer.date_of_last_pickup}}
+            <br>    
+            <label class="fw-bold">
+                    Special Pickup Date(s):
+            </label> {{Customer.one_time_pickup}}
+                
+            <br>
+            <label class="fw-bold text-success">
+                Suspension Start:
+            </label> {{Customer.suspend_start}}<br>
 
-        <br>
-        <label class="fw-bold text-success">
-            Suspension Start:
-        </label> {{Customer.suspend_start}}<br>
+            <label class="fw-bold text-danger">
+                Suspension End:
+            </label> {{Customer.suspend_end}}
+            <br>
+            <iframe class="col-sm-6 mb-4 embed-responsive embed-responsive-1by1" title="customer_addres_map" src="{{api_address}}" allowfullscreen></iframe>
+        </li>
+    </ul>
+    
+    <iframe class="col-sm-6 mb-4 embed-responsive embed-responsive-1by1" title="customer_addres_map" src="{{api_url}}" allowfullscreen></iframe>
+    <br>
 
-        <label class="fw-bold text-danger">
-            Suspension End:
-        </label> {{Customer.suspend_end}}
-    </li>
-</ul>
+    <button class="btn btn-primary"><a href="{% url 'employees:index' %}"  class="text-uppercase text-decoration-none text-light">Back</a></button>
 
-<iframe class="col-sm-6 mb-4 embed-responsive embed-responsive-1by1" title="customer_addres_map" src="{{api_url}}"
-    allowfullscreen></iframe>
-<br>
-
-<button class="btn btn-primary"><a href="{% url 'employees:index' %}"
-        class="text-uppercase text-decoration-none text-light">Back</a></button>
-
-<!-- If user not logged in -->
-{% else %}
-<p>You are at the customer index, but you are not logged in.</p>
-<a href="{% url 'login' %}">Log In</a>
-<a href="{% url 'accounts:register' %}">Sign Up</a>
-{% endif %}
+  <!-- If user not logged in -->
+  {% else %}
+    <p>You are at the customer index, but you are not logged in.</p>
+    <a href="{% url 'login' %}">Log In</a>
+    <a href="{% url 'accounts:register' %}">Sign Up</a>
+  {% endif %}
 {% endblock %}

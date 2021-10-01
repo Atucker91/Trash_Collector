@@ -36,8 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'customers',
-    'employees'
-    # 'paypal.standard.ipn'
+    'employees',
+    'paypal.standard.ipn',
 ]
 
 MIDDLEWARE = [
@@ -136,5 +136,6 @@ except ImportError:
     pass
 
 #django paypal settings
-PAYPAL_RECEIVER_EMAIL = 'AandRTrash@gmail.com'
+PAYPAL_RECEIVER_EMAIL = 'sb-vnwag7959863@business.example.com'
 PAYPAL_TEST = True
+GOOGLE_MAPS_API_KEY = 'SAMPLE'

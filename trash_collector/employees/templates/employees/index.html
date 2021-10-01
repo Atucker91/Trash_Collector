@@ -18,11 +18,11 @@ Hello Employee {{ logged_in_employee.name }}!
 
       {% if customer.date_of_last_pickup != today %}
       <form method="post">{% csrf_token %}<input type="hidden" id="cust_id" name="cust_id"
-          value="{{ customer.id }}"><input type="submit" value="Collect Payment"></form>
+          value="{{ customer.id }}"><input type="submit" value="Collect Trash"></form>
       {% endif %}
 
       {% if customer.date_of_last_pickup == today %}
-      Trash has been collected today!
+      Trash has been collected today! Charged $20
       {% endif %}
 
       <br>

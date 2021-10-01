@@ -4,6 +4,10 @@ from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from datetime import date
+from paypal.standard.forms import PayPalPaymentsForm
+from django.views.decorators.csrf import csrf_exempt
+from decimal import Decimal
+from django.conf import settings
 
 from .models import Customer
 
@@ -91,3 +95,57 @@ def edit_profile(request):
             'logged_in_customer': logged_in_customer
         }
         return render(request, 'customers/edit_profile.html', context)
+        
+@login_required
+def view_that_asks_for_money(request):
+    logged_in_user = request.user
+    logged_in_customer = Customer.objects.get(user=logged_in_user)
+    amount = logged_in_customer.balance
+    currency = "${:,.2f}".format(amount)
+    host = request.get_host()
+    # What you want the button to do.
+    paypal_dict = {
+        "business": "A & R Trash Services",
+        "amount": currency,
+        "item_name": "Trash Collection",
+        "invoice": "666",
+        'notify_url': 'http://{}{}'.format(host,
+                                           reverse('paypal-ipn')),
+        'return_url': 'http://{}{}'.format(host,
+                                           reverse('payment_done')),
+        'cancel_return': 'http://{}{}'.format(host,
+                                              reverse('payment_cancelled')),
+
+    }
+
+    # Create the instance.
+    form = PayPalPaymentsForm(initial=paypal_dict)
+    context = {"form": form}
+    return render_to_response("payment.html", context)
+
+@csrf_exempt
+def payment_done(request):
+    return render(request, 'ecommerce_app/payment_done.html')
+
+@csrf_exempt
+def payment_canceled(request):
+    return render(request, 'ecommerce_app/payment_cancelled.html')
+
+def checkout(request):
+    if request.method == 'POST':
+        form = CheckoutForm(request.POST)
+        if form.is_valid():
+            cleaned_data = form.cleaned_data
+        #...
+        #...
+
+            cart.clear(request)
+
+            request.session['order_id'] = o.id
+            return redirect('process_payment')
+
+
+    else:
+        form = CheckoutForm()
+        return render(request, 'ecommerce_app/checkout.html', locals())
+

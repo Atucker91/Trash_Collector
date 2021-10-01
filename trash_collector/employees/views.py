@@ -5,10 +5,9 @@ from datetime import date
 from .models import Employee
 from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
-from . import views
 from django.contrib.auth.decorators import login_required
 import calendar
-from django.db.models import Q 
+from django.db.models import Q
 
 # Create your views here.
 
@@ -127,12 +126,28 @@ def customer(request, custid):
     try:
         logged_in_employee = Employee.objects.get(user=logged_in_user)
         today = date.today()
-        
+        customer_address = customer_map_profile(mycustomer)
+        api_address = f'https://www.google.com/maps/embed/v1/place?key=AIzaSyAU2MXcHftQbhIM7cGPzks9nwmdXecqqkc&q={customer_address}'
+        amount = mycustomer.balance
+        currency = "${:,.2f}".format(amount)
         context = {
             'logged_in_employee': logged_in_employee,
             'today': today,
-            'Customer': mycustomer
+            'Customer': mycustomer,
+            'api_address': api_address,
+            'custbalance': currency
         }
         return render(request, 'employees/customerprofile.html', context)
     except ObjectDoesNotExist:
         return HttpResponseRedirect(reverse('employees:index'))
+
+def customer_map_profile(customer):
+    customer_address = customer.address
+    customer_zipcode = customer.zip_code
+
+    # Process - replace spaces with '+'
+    split_address = customer_address.split()
+    formatted_address_no_zip = '+'.join(split_address)
+    api_address = formatted_address_no_zip + '+' + customer_zipcode
+
+    return api_address
