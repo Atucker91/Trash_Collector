@@ -25,25 +25,25 @@ Select A Day Of The Week To See Pickup List of All Zipcodes
 <table class="table table-light table-striped tc-table">
   <tbody>
     <tr>
-      <td style="width: 200px;font-weight: bold;">Name</td>
-      <td style="width: 350px;font-weight: bold;">Address</td>
-      <td style="width: 110px;font-weight: bold;">Zip code</td>
-      <td style="width: 125px;font-weight: bold;">Pickup Day</td>
-      <td style="width: 115px;font-weight: bold;">Special Pickup</td>
-      <td style="width: 50px;font-weight: bold;">Last pickup day</td>
-      <td style="width: 100px;font-weight: bold;">Balance</td>
-      <td style="width: 50px;font-weight: bold;">Suspended?</td>
+      <td class="align-middle" style="font-weight: bold;">Name</td>
+      <td class="align-middle" style="font-weight: bold;">Address</td>
+      <td class="align-middle" style="font-weight: bold;">Zip code</td>
+      <td class="align-middle" style="font-weight: bold;">Pickup Day</td>
+      <td class="align-middle" style="font-weight: bold;">Special Pickup</td>
+      <td class="align-middle" style="font-weight: bold;">Last pickup day</td>
+      <td class="align-middle" style="font-weight: bold;">Balance</td>
+      <td class="align-middle" style="font-weight: bold;">Suspended?</td>
     </tr>
     {% for customer in Customers %}
     <tr>
       <td><a class="btn btn-primary btn-sm" href="{% url 'employees:customer' customer.id %}">{{customer.name}}</a></td>
-      <td style="width: 350px;">{{customer.address}}</td>
-      <td style="width: 110px;">{{customer.zip_code}}</td>
-      <td style="width: 125px;">{{customer.weekly_pickup}}</td>
-      <td style="width: 125px;">{{customer.one_time_pickup}}</td>
-      <td style="width: 125px;">{{customer.date_of_last_pick}}</td>
-      <td style="width: 100px;">{{customer.balance}}</td>
-      <td style="width: 50px;">{{customer.suspended}}</td>
+      <td>{{customer.address}}</td>
+      <td>{{customer.zip_code}}</td>
+      <td>{{customer.weekly_pickup}}</td>
+      <td>{{customer.one_time_pickup}}</td>
+      <td>{{customer.date_of_last_pick}}</td>
+      <td>{{customer.balance}}</td>
+      <td>{{customer.suspended}}</td>
       </td>
     </tr>
     {% endfor %}
