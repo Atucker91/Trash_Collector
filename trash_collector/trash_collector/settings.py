@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'accounts',
     'customers',
     'employees',
-    'paypal.standard.ipn',
 ]
 
 MIDDLEWARE = [
